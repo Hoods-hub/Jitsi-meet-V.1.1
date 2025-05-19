@@ -55,6 +55,7 @@ services:
       autoDeploy: true
 
     prosody:
+      type: "container"
       image: jitsi/prosody:latest
       envVars:
         - key: JICOFO_COMPONENT_SECRET
@@ -69,6 +70,7 @@ services:
           target: /config
 
     jicofo:
+      type: "container"
       image: jitsi/jicofo:latest
       envVars:
         - key: JICOFO_COMPONENT_SECRET
@@ -79,6 +81,7 @@ services:
         - prosody
 
     jvb:
+      type: "container"
       image: jitsi/jvb:latest
       envVars:
         - key: JVB_AUTH_PASSWORD
@@ -90,6 +93,7 @@ services:
         - prosody
 
     jigasi:
+      type: "container"
       image: jitsi/jigasi:latest
       envVars:
         - key: JIGASI_SIP_URI
@@ -102,6 +106,7 @@ services:
         - prosody
 
     etherpad:
+      type: "container"
       image: etherpad/etherpad:latest
       envVars:
         - key: TITLE
@@ -112,6 +117,7 @@ services:
           value: adminpass
 
     jibri:
+      type: "container"
       image: jitsi/jibri:latest
       volumes:
         - type: volume
