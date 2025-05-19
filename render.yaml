@@ -1,132 +1,125 @@
 services:
-  web:
-    type: "container"
-    image: jitsi/web:latest
-    envVars:
-      - key: ENABLE_AUTH
-        value: "0"
-      - key: ENABLE_GUESTS
-        value: "1"
-      - key: ENABLE_LETSENCRYPT
-        value: "0"
-      - key: ENABLE_HTTP_REDIRECT
-        value: "0"
-      - key: ENABLE_TRANSCRIPTIONS
-        value: "0"
-      - key: ENABLE_RECORDING
-        value: "0"
-      - key: ENABLE_PREJOIN_PAGE
-        value: "0"
-      - key: ENABLE_WELCOME_PAGE
-        value: "1"
-      - key: ENABLE_CLOSE_PAGE
-        value: "0"
-      - key: DISABLE_AUDIO_LEVELS
-        value: "0"
-      - key: ENABLE_NO_AUDIO_DETECTION
-        value: "1"
-      - key: ENABLE_P2P
-        value: "1"
-      - key: ENABLE_IPV6
-        value: "0"
-      - key: ENABLE_SCTP
-        value: "1"
-      - key: ENABLE_TURN
-        value: "1"
-      - key: ENABLE_HTTPS
-        value: "0"
-      - key: JICOFO_COMPONENT_SECRET
-        value: s3cr37
-      - key: JVB_AUTH_USER
-        value: jvb
-      - key: JVB_AUTH_PASSWORD
-        value: jvbpass
-      - key: JICOFO_AUTH_PASSWORD
-        value: focopass
-      - key: TZ
-        value: UTC
-    ports:
-      - 8000:80
-      - 8443:443
-    volumes:
-      - type: volume
-        source: web-config
-        target: /config
-    autoDeploy: true
+  - type: web
+      image: jitsi/web:latest
+      envVars:
+        - key: ENABLE_AUTH
+          value: "0"
+        - key: ENABLE_GUESTS
+          value: "1"
+        - key: ENABLE_LETSENCRYPT
+          value: "0"
+        - key: ENABLE_HTTP_REDIRECT
+          value: "0"
+        - key: ENABLE_TRANSCRIPTIONS
+          value: "0"
+        - key: ENABLE_RECORDING
+          value: "0"
+        - key: ENABLE_PREJOIN_PAGE
+          value: "0"
+        - key: ENABLE_WELCOME_PAGE
+          value: "1"
+        - key: ENABLE_CLOSE_PAGE
+          value: "0"
+        - key: DISABLE_AUDIO_LEVELS
+          value: "0"
+        - key: ENABLE_NO_AUDIO_DETECTION
+          value: "1"
+        - key: ENABLE_P2P
+          value: "1"
+        - key: ENABLE_IPV6
+          value: "0"
+        - key: ENABLE_SCTP
+          value: "1"
+        - key: ENABLE_TURN
+          value: "1"
+        - key: ENABLE_HTTPS
+          value: "0"
+        - key: JICOFO_COMPONENT_SECRET
+          value: s3cr37
+        - key: JVB_AUTH_USER
+          value: jvb
+        - key: JVB_AUTH_PASSWORD
+          value: jvbpass
+        - key: JICOFO_AUTH_PASSWORD
+          value: focopass
+        - key: TZ
+          value: UTC
+      ports:
+        - 8000:80
+        - 8443:443
+      volumes:
+        - type: volume
+          source: web-config
+          target: /config
+      autoDeploy: true
 
-  prosody:
-    type: "container"
-    image: jitsi/prosody:latest
-    envVars:
-      - key: JICOFO_COMPONENT_SECRET
-        value: s3cr37
-      - key: JVB_AUTH_PASSWORD
-        value: jvbpass
-      - key: JICOFO_AUTH_PASSWORD
-        value: focopass
-    volumes:
-      - type: volume
-        source: prosody-config
-        target: /config
+    prosody:
+      image: jitsi/prosody:latest
+      envVars:
+        - key: JICOFO_COMPONENT_SECRET
+          value: s3cr37
+        - key: JVB_AUTH_PASSWORD
+          value: jvbpass
+        - key: JICOFO_AUTH_PASSWORD
+          value: focopass
+      volumes:
+        - type: volume
+          source: prosody-config
+          target: /config
 
-  jicofo:
-    type: "container"
-    image: jitsi/jicofo:latest
-    envVars:
-      - key: JICOFO_COMPONENT_SECRET
-        value: s3cr37
-      - key: JICOFO_AUTH_PASSWORD
-        value: focopass
-    dependsOn:
-      - prosody
+    jicofo:
+      image: jitsi/jicofo:latest
+      envVars:
+        - key: JICOFO_COMPONENT_SECRET
+          value: s3cr37
+        - key: JICOFO_AUTH_PASSWORD
+          value: focopass
+      dependsOn:
+        - prosody
 
-  jvb:
-    type: "container"
-    image: jitsi/jvb:latest
-    envVars:
-      - key: JVB_AUTH_PASSWORD
-        value: jvbpass
-    ports:
-      - 10000:10000/udp
-      - 4443:4443
-    dependsOn:
-      - prosody
+    jvb:
+      image: jitsi/jvb:latest
+      envVars:
+        - key: JVB_AUTH_PASSWORD
+          value: jvbpass
+      ports:
+        - 10000:10000/udp
+        - 4443:4443
+      dependsOn:
+        - prosody
 
-  jigasi:
-    type: "container"
-    image: jitsi/jigasi:latest
-    envVars:
-      - key: JIGASI_SIP_URI
-        value: sip:focus@domain.com
-      - key: JIGASI_SIP_PASSWORD
-        value: pass
-      - key: JIGASI_SIP_SERVER
-        value: sipserver.com
-    dependsOn:
-      - prosody
+    jigasi:
+      image: jitsi/jigasi:latest
+      envVars:
+        - key: JIGASI_SIP_URI
+          value: sip:focus@domain.com
+        - key: JIGASI_SIP_PASSWORD
+          value: pass
+        - key: JIGASI_SIP_SERVER
+          value: sipserver.com
+      dependsOn:
+        - prosody
 
-  etherpad:
-    type: "container"
-    image: etherpad/etherpad:latest
-    envVars:
-      - key: TITLE
-        value: "Jitsi Collaborative Document"
-      - key: DEFAULT_PAD_TEXT
-        value: "Welcome to Jitsi + Etherpad!"
-      - key: ADMIN_PASSWORD
-        value: adminpass
+    etherpad:
+      image: etherpad/etherpad:latest
+      envVars:
+        - key: TITLE
+          value: "Jitsi Collaborative Document"
+        - key: DEFAULT_PAD_TEXT
+          value: "Welcome to Jitsi + Etherpad!"
+        - key: ADMIN_PASSWORD
+          value: adminpass
 
-  jibri:
-    type: "container"
-    image: jitsi/jibri:latest
-    volumes:
-      - type: volume
-        source: jibri-config
-        target: /config
-    envVars:
-      - key: JIBRI_RECORDER_PASSWORD
-        value: recorderpass
-      - key: JIBRI_XMPP_PASSWORD
-        value: xmpppass
-    dependsOn:
-      - prosody
+    jibri:
+      image: jitsi/jibri:latest
+      volumes:
+        - type: volume
+          source: jibri-config
+          target: /config
+      envVars:
+        - key: JIBRI_RECORDER_PASSWORD
+          value: recorderpass
+        - key: JIBRI_XMPP_PASSWORD
+          value: xmpppass
+      dependsOn:
+        - prosody
