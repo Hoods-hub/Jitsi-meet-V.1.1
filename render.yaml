@@ -123,8 +123,3 @@ services:
         value: xmpppass
     dependsOn:
       - prosody
-
-volumes:
-  web-config:
-  prosody-config:
-  jibri-config:
