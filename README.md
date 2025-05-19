@@ -1,87 +1,39 @@
-# <p align="center">Jitsi Meet</p>
+# Jitsi Meet on Docker
 
-Jitsi Meet is a set of Open Source projects which empower users to use and deploy
-video conferencing platforms with state-of-the-art video quality and features.
+![](resources/jitsi-docker.png)
 
-<hr />
+[Jitsi](https://jitsi.org/) is a set of Open Source projects that allows you to easily build and deploy secure videoconferencing solutions.
 
-<p align="center">
-<img src="https://raw.githubusercontent.com/jitsi/jitsi-meet/master/readme-img1.png" width="900" />
-</p>
+[Jitsi Meet](https://jitsi.org/jitsi-meet/) is a fully encrypted, 100% Open Source video conferencing solution that you can use all day, every day, for free — with no account needed.
 
-<hr />
+This repository contains the necessary tools to run a Jitsi Meet stack on [Docker](https://www.docker.com) using [Docker Compose](https://docs.docker.com/compose/).
 
-Amongst others here are the main features Jitsi Meet offers:
+All our images are published on [DockerHub](https://hub.docker.com/u/jitsi/).
 
-* Support for all current browsers
-* Mobile applications
-* Web and native SDKs for integration
-* HD audio and video
-* Content sharing
-* Raise hand and reactions
-* Chat with private conversations
-* Polls
-* Virtual backgrounds
+## Supported architectures
 
-And many more!
+Starting with `stable-7439` the published images are available for `amd64` and `arm64`.
 
-## Using Jitsi Meet
+## Tags
 
-Using Jitsi Meet is straightforward, as it's browser based. Head over to [meet.jit.si](https://meet.jit.si) and give it a try. It's scalable and free to use. All you need is a Google, Facebook or GitHub account in order to start a meeting. All browsers are supported!
+These are the currently published tags for all our images:
 
-Using mobile? No problem, you can either use your mobile web browser or our fully-featured
-mobile apps:
+Tag | Description
+-- | --
+`stable` | Points to the latest stable release
+`stable-NNNN-X` | A stable release
+`unstable` | Points to the latest unstable release
+`unstable-YYYY-MM-DD` | Daily unstable release
+`latest` | Deprecated, no longer updated (will be removed)
 
-| Android | Android (F-Droid) | iOS |
-|:-:|:-:|:-:|
-| [<img src="resources/img/google-play-badge.png" height="50">](https://play.google.com/store/apps/details?id=org.jitsi.meet) | [<img src="resources/img/f-droid-badge.png" height="50">](https://f-droid.org/packages/org.jitsi.meet/) | [<img src="resources/img/appstore-badge.png" height="50">](https://itunes.apple.com/us/app/jitsi-meet/id1165103905) |
+## Installation
 
-If you are feeling adventurous and want to get an early scoop of the features as they are being
-developed you can also sign up for our open beta testing here:
+The installation manual is available [here](https://jitsi.github.io/handbook/docs/devops-guide/devops-guide-docker).
 
-* [Android](https://play.google.com/apps/testing/org.jitsi.meet)
-* [iOS](https://testflight.apple.com/join/isy6ja7S)
+### Kubernetes
 
-## Running your own instance
+If you plan to install the jitsi-meet stack on a Kubernetes cluster you can find tools and tutorials in the project [Jitsi on Kubernetes](https://github.com/jitsi-contrib/jitsi-kubernetes).
 
-If you'd like to run your own Jitsi Meet installation head over to the [handbook](https://jitsi.github.io/handbook/docs/devops-guide/) to get started.
+## TODO
 
-We provide Debian packages and a comprehensive Docker setup to make deployments as simple as possible.
-Advanced users also have the possibility of building all the components from source.
-
-You can check the latest releases [here](https://jitsi.github.io/handbook/docs/releases).
-
-## Jitsi as a Service
-
-If you like the branding capabilities of running your own instance but you'd like
-to avoid dealing with the complexity of monitoring, scaling and updates, JaaS might be
-for you.
-
-[8x8 Jitsi as a Service (JaaS)](https://jaas.8x8.vc) is an enterprise-ready video meeting platform that allows developers, organizations and businesses to easily build and deploy video solutions. With Jitsi as a Service we now give you all the power of Jitsi running on our global platform so you can focus on building secure and branded video experiences.
-
-## Documentation
-
-All the Jitsi Meet documentation is available in [the handbook](https://jitsi.github.io/handbook/).
-
-## Security
-
-For a comprehensive description of all Jitsi Meet's security aspects, please check [this link](https://jitsi.org/security).
-
-For a detailed description of Jitsi Meet's End-to-End Encryption (E2EE) implementation,
-please check [this link](https://jitsi.org/e2ee-whitepaper/).
-
-For information on reporting security vulnerabilities in Jitsi Meet, see [SECURITY.md](./SECURITY.md).
-
-## Contributing
-
-If you are looking to contribute to Jitsi Meet, first of all, thank you! Please
-see our [guidelines for contributing](CONTRIBUTING.md).
-
-<br />
-<br />
-
-<footer>
-<p align="center" style="font-size: smaller;">
-Built with ❤️ by the Jitsi team at <a href="https://8x8.com" target="_blank">8x8</a> and our community.
-</p>
-</footer>
+* Builtin TURN server.
