@@ -1,7 +1,8 @@
 services:
-  - name: web # name
-    image: jitsi/web:latest # image
-    envVars: # envVars
+  - name: web
+    type: web
+    image: jitsi/web:latest
+    envVars:
       - key: ENABLE_AUTH
         value: "0"
       - key: ENABLE_GUESTS
@@ -53,7 +54,8 @@ services:
         target: /config
     autoDeploy: true
 
-  - name: prosody # name
+  - name: prosody
+    type: worker
     image: jitsi/prosody:latest
     envVars:
       - key: JICOFO_COMPONENT_SECRET
@@ -67,7 +69,8 @@ services:
         source: prosody-config
         target: /config
 
-  - name: jicofo # name
+  - name: jicofo
+    type: worker
     image: jitsi/jicofo:latest
     envVars:
       - key: JICOFO_COMPONENT_SECRET
@@ -77,7 +80,8 @@ services:
     dependsOn:
       - prosody
 
-  - name: jvb # name
+  - name: jvb
+    type: worker
     image: jitsi/jvb:latest
     envVars:
       - key: JVB_AUTH_PASSWORD
@@ -88,7 +92,8 @@ services:
     dependsOn:
       - prosody
 
-  - name: jigasi # name
+  - name: jigasi
+    type: worker
     image: jitsi/jigasi:latest
     envVars:
       - key: JIGASI_SIP_URI
@@ -100,7 +105,8 @@ services:
     dependsOn:
       - prosody
 
-  - name: etherpad # name
+  - name: etherpad
+    type: web
     image: etherpad/etherpad:latest
     envVars:
       - key: TITLE
@@ -110,7 +116,8 @@ services:
       - key: ADMIN_PASSWORD
         value: adminpass
 
-  - name: jibri # name
+  - name: jibri
+    type: worker
     image: jitsi/jibri:latest
     volumes:
       - type: volume
