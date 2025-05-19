@@ -1,5 +1,5 @@
 services:
-  - type: web
+  - web
       image: jitsi/web:latest
       envVars:
         - key: ENABLE_AUTH
