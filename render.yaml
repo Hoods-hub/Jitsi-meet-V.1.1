@@ -1,5 +1,6 @@
 services:
   - web
+      type: "container"
       image: jitsi/web:latest
       envVars:
         - key: ENABLE_AUTH
