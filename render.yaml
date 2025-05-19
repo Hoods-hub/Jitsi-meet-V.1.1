@@ -1,7 +1,7 @@
 services:
   - web
-      type: "container"
-      image: jitsi/web:latest
+      image: 
+        url:jitsi/web:latest
       envVars:
         - key: ENABLE_AUTH
           value: "0"
