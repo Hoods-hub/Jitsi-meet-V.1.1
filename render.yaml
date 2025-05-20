@@ -9,7 +9,7 @@ services:
       - fromGroup: jitsi-common
 
   - name: jitsi-prosody
-    type: private-service
+    type: private
     env: docker
     dockerfilePath: prosody/Dockerfile
     plan: standard
@@ -18,7 +18,7 @@ services:
       - fromGroup: jitsi-common
 
   - name: jitsi-jicofo
-    type: private-service
+    type: private
     env: docker
     dockerfilePath: jicofo/Dockerfile
     plan: standard
@@ -27,7 +27,7 @@ services:
       - fromGroup: jitsi-common
 
   - name: jitsi-jvb
-    type: private-service
+    type: private
     env: docker
     dockerfilePath: jvb/Dockerfile
     plan: standard
